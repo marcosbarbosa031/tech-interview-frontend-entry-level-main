@@ -3,8 +3,6 @@ import Form from './components/Form/Form';
 import RecommendationList from './components/RecommendationList/RecommendationList';
 
 function App() {
-  const [recommendations, setRecommendations ] = useState([])
-
   /**
    * Dadas atualizações no formulário, necessário atualizar a lista de recomendações
    */
@@ -22,7 +20,7 @@ function App() {
           <Form />
         </div>
         <div>
-          <RecommendationList recommendations={recommendations} />
+          <RecommendationList/>
         </div>
       </div>
     </div>

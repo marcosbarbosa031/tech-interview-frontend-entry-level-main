@@ -8,14 +8,13 @@ import useForm from '../../hooks/useForm';
 import useRecommendations from '../../hooks/useRecommendations';
 
 function Form() {
-  const { preferences, features, products } = useProducts();
+  const { preferences, features, products, loading, error } = useProducts();
+  const { defaultRecommendationType, getRecommendations } = useRecommendations(products);
   const { formData, handleChange } = useForm({
     selectedPreferences: [],
     selectedFeatures: [],
     selectedRecommendationType: '',
   });
-
-  const { getRecommendations, recommendations } = useRecommendations(products);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -25,6 +24,28 @@ function Form() {
      * Defina aqui a lógica para atualizar as recomendações e passar para a lista de recomendações
      */
   };
+
+  useEffect(() => {
+    if (defaultRecommendationType) {
+      handleChange('selectedRecommendationType', defaultRecommendationType);
+    }
+  }, [defaultRecommendationType, handleChange]);
+
+  if (loading) {
+    return (
+      <div className="max-w-md mx-auto p-4 bg-white rounded-lg shadow-md">
+        <div className="text-center">Carregando produtos...</div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="max-w-md mx-auto p-4 bg-white rounded-lg shadow-md">
+        <div className="text-center text-red-500">Erro ao carregar produtos: {error}</div>
+      </div>
+    );
+  }
 
   return (
     <form
@@ -44,9 +65,10 @@ function Form() {
         }
       />
       <RecommendationType
-        onRecommendationTypeChange={(selected) =>
+        onRecommendationTypeChange={(selected) => 
           handleChange('selectedRecommendationType', selected)
         }
+        required
       />
       <SubmitButton text="Obter recomendação" />
     </form>
