@@ -1,4 +1,4 @@
-import getProducts from '../product.service';
+import productService from '../product.service';
 import axios from 'axios';
 
 jest.mock('axios', () => ({
@@ -21,7 +21,7 @@ describe('product.service', () => {
       data: mockProducts,
     });
 
-    const result = await getProducts();
+    const result = await productService.getProducts();
 
     expect(axios.get).toHaveBeenCalledWith('http://localhost:3001/products');
     expect(axios.get).toHaveBeenCalledTimes(1);
@@ -37,7 +37,7 @@ describe('product.service', () => {
     // Mock do console.error para evitar logs durante os testes
     const consoleSpy = jest.spyOn(console, 'error').mockImplementation(() => {});
 
-    await expect(getProducts()).rejects.toThrow('Network Error');
+    await expect(productService.getProducts()).rejects.toThrow('Network Error');
     
     expect(axios.get).toHaveBeenCalledWith('http://localhost:3001/products');
     expect(consoleSpy).toHaveBeenCalledWith('Erro ao obter os produtos:', mockError);
@@ -51,7 +51,7 @@ describe('product.service', () => {
       data: [],
     });
 
-    const result = await getProducts();
+    const result = await productService.getProducts();
 
     expect(result).toEqual([]);
     expect(Array.isArray(result)).toBe(true);

@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 function RecommendationList({ recommendations }) {
+
   return (
     <div>
       <h2 className="text-lg font-bold mb-4">Lista de Recomendações:</h2>
