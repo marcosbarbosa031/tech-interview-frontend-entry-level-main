@@ -153,7 +153,7 @@ const recommendationService = {
   getRecommendations: ({
     selectedPreferences = [],
     selectedFeatures = [],
-    selectedRecommendationType = MULTIPLE_PRODUCTS
+    selectedRecommendationType,
   }, products) => {
     if (hasNoProducts(products)) return [];
 

@@ -1,26 +1,74 @@
-import React, { useState } from 'react';
-import Form from './components/Form/Form';
+import React, { useState, useCallback } from 'react';
+import Header from './components/Header/Header';
+import FilterSidebar from './components/FilterSidebar/FilterSidebar';
+import ErrorScreen from './components/ErrorScreen/ErrorScreen';
 import RecommendationList from './components/RecommendationList/RecommendationList';
+import useProducts from './hooks/useProducts';
+import useForm from './hooks/useForm';
+import useRecommendations from './hooks/useRecommendations';
+import RECOMMENDATION_TYPE from './enum/recommendationType.enum';
+
+const { MULTIPLE_PRODUCTS } = RECOMMENDATION_TYPE;
 
 function App() {
-  const [recommendations, setRecommendations ] = useState([])
+  const [recommendations, setRecommendations] = useState([]);
+  const [isFiltering, setIsFiltering] = useState(false);
+
+  const { preferences, features, products, loading, error } = useProducts();
+  const { getRecommendations } = useRecommendations(products);
+  const { formData, handleChange, resetToDefault } = useForm({
+    selectedPreferences: [],
+    selectedFeatures: [],
+    selectedRecommendationType: MULTIPLE_PRODUCTS,
+  });
+
+  const handleApplyFilters = useCallback(async () => {
+    setIsFiltering(true);
+    try {
+      const results = getRecommendations(formData);
+      setRecommendations(results);
+    } catch (error) {
+      console.error('Erro ao aplicar filtros:', error);
+    } finally {
+      setIsFiltering(false);
+    }
+  }, [formData, getRecommendations]);
 
   return (
-    <div className="bg-gray-100 min-h-screen flex flex-col justify-center items-center">
-      <h1 className="text-3xl font-bold mb-8">Recomendador de Produtos RD Station</h1>
-      <div className="bg-white p-8 rounded-lg shadow-md w-full md:w-3/4 lg:w-1/2 grid grid-cols-1 md:grid-cols-2 gap-8">
-        <div className="col-span-2 mb-4">
-          <p className="text-lg">
-            Bem-vindo ao Recomendador de Produtos RD Station. Aqui você pode encontrar uma variedade de produtos da RD Station, cada um projetado para atender às necessidades específicas do seu negócio. De CRM a Marketing, de Conversas a Inteligência Artificial, temos uma solução para ajudar você a alcançar seus objetivos. Use o formulário abaixo para selecionar suas preferências e funcionalidades desejadas e receba recomendações personalizadas de produtos que melhor atendam às suas necessidades.
-          </p>
+    <div className="min-h-screen bg-gray-50">
+      <Header />
+
+      {/* Main Content */}
+      <main className="container mx-auto px-4 py-8">
+        <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
+          {/* Sidebar de Filtros */}
+          <div className="lg:col-span-1">
+            <div className="sticky top-8">
+              <FilterSidebar
+                preferences={preferences}
+                features={features}
+                formData={formData}
+                handleChange={handleChange}
+                onApplyFilters={handleApplyFilters}
+                onClearFilters={resetToDefault}
+                loading={loading}
+              />
+            </div>
+          </div>
+
+          {/* Área Principal de Resultados */}
+          <div className="lg:col-span-3">
+            {error ? (
+              <ErrorScreen error={error} />
+            ) : (
+              <RecommendationList
+                recommendations={recommendations}
+                loading={loading || isFiltering}
+              />
+            )}
+          </div>
         </div>
-        <div>
-          <Form setRecommendations={setRecommendations} />
-        </div>
-        <div>
-          <RecommendationList recommendations={recommendations} />
-        </div>
-      </div>
+      </main>
     </div>
   );
 }

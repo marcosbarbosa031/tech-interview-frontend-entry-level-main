@@ -8,7 +8,11 @@ const useForm = (initialState) => {
     setFormData(prevData => ({ ...prevData, [field]: value }));
   }, []);
 
-  return { formData, handleChange };
+  const resetToDefault = useCallback(() => {
+    setFormData(initialState);
+  }, [initialState]);
+
+  return { formData, handleChange, resetToDefault };
 };
 
 export default useForm;

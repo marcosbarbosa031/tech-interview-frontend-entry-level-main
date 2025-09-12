@@ -1,6 +1,6 @@
 // Preferences.js
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Checkbox from '../../shared/Checkbox';
 
 function Preferences({
@@ -19,10 +19,13 @@ function Preferences({
     onPreferenceChange(updatedPreferences);
   };
 
+  useEffect(() => {
+    setCurrentPreferences(selectedPreferences);
+  }, [selectedPreferences]);
+
   return (
-    <div className="mb-4">
-      <h2 className="text-lg font-bold mb-2">Preferências:</h2>
-      <ul>
+    <div className="space-y-3">
+      <ul className="space-y-2">
         {preferences.map((preference, index) => (
           <li key={index} className="mb-2">
             <Checkbox
