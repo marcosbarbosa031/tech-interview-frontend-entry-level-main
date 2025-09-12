@@ -20,14 +20,7 @@ function Form({ setRecommendations }) {
     e.preventDefault();
     const dataRecommendations = getRecommendations(formData, products);
 
-    console.log('dataRecommendations', dataRecommendations);
-
     setRecommendations(dataRecommendations);
-    console.log('dataRecommendations', dataRecommendations);
-
-    /**
-     * Defina aqui a lógica para atualizar as recomendações e passar para a lista de recomendações
-     */
   };
 
   useEffect(() => {
