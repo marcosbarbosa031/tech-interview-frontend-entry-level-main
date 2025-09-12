@@ -1,7 +1,11 @@
 import React from 'react';
 import ProductCard from '../ProductCard/ProductCard';
+import ErrorScreen from '../ErrorScreen/ErrorScreen';
+import useProducts from '../../hooks/useProducts';
 
-function RecommendationList({ recommendations, loading }) {
+function RecommendationList({ recommendations }) {
+  const { loading, error } = useProducts();
+
   // Estado de loading
   if (loading) {
     return (
@@ -31,12 +35,15 @@ function RecommendationList({ recommendations, loading }) {
     );
   }
 
+  if (error) {
+    return <ErrorScreen error={error} />;
+  }
+
   // Estado vazio
   if (!recommendations || recommendations.length === 0) {
     return (
       <div className="text-center py-16">
         <div className="mb-6">
-          {/* <span className="text-6xl">🔍</span> */}
         </div>
         <h2 className="text-2xl font-bold text-gray-800 mb-4">
           Nenhuma recomendação encontrada
@@ -44,19 +51,6 @@ function RecommendationList({ recommendations, loading }) {
         <p className="text-gray-600 mb-8 max-w-md mx-auto">
           Tente ajustar seus filtros ou selecionar diferentes preferências para encontrar produtos que atendam às suas necessidades.
         </p>
-        
-        <div className="bg-blue-50 border border-blue-200 rounded-lg p-6 w-fit mx-auto">
-          <div className="flex items-start space-x-3">
-            <div className="text-left">
-              <h3 className="font-semibold text-blue-800 mb-2">Sugestões:</h3>
-              <ul className="text-sm text-blue-700 space-y-1">
-                <li>• Limpe os filtros e tente novamente</li>
-                <li>• Selecione menos filtros específicos</li>
-                <li>• Experimente diferentes combinações</li>
-              </ul>
-            </div>
-          </div>
-        </div>
       </div>
     );
   }
