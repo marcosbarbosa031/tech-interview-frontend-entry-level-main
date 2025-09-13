@@ -11,12 +11,11 @@ function RecommendationList({ recommendations }) {
     return (
       <div className="space-y-6">
         <div className="flex items-center space-x-3 mb-6">
-          <span className="text-2xl">📋</span>
           <h2 className="text-2xl font-bold text-gray-800">Carregando recomendações...</h2>
         </div>
         
         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
-          {[1, 2, 3].map((i) => (
+          {[...Array(6)].map((i) => (
             <div key={i} className="bg-white rounded-xl shadow-lg border border-gray-100 overflow-hidden animate-pulse">
               <div className="bg-gray-200 h-24"></div>
               <div className="p-6 space-y-4">

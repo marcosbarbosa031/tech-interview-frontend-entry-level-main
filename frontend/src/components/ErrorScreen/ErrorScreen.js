@@ -3,9 +3,6 @@ import React from 'react';
 const ErrorScreen = ({ error }) => {
   return (
     <div className="text-center py-16">
-      <div className="mb-6">
-        <span className="text-6xl">⚠️</span>
-      </div>
       <h2 className="text-2xl font-bold text-red-600 mb-4">
         Erro ao carregar produtos
       </h2>
