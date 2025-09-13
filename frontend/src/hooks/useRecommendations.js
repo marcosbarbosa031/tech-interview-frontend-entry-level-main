@@ -2,11 +2,11 @@
 
 import { useState } from 'react';
 import recommendationService from '../services/recommendation.service';
-import RECOMMENDATION_TYPE from '../enum/recommendationType.enum';
+import RecomendationTypeEnum from '../enum/recommendationType.enum';
 
 function useRecommendations(products) {
   const [recommendations, setRecommendations] = useState([]);
-  const defaultRecommendationType = RECOMMENDATION_TYPE.MULTIPLE_PRODUCTS;
+  const defaultRecommendationType = RecomendationTypeEnum.MULTIPLE_PRODUCTS;
 
   const getRecommendations = (formData) => {
     return recommendationService.getRecommendations(formData, products);

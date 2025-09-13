@@ -6,7 +6,8 @@ import useProducts from '../../hooks/useProducts';
 function RecommendationList({ recommendations }) {
   const { loading, error } = useProducts();
 
-  // Estado de loading
+  const hasNoRecommendations = !recommendations || recommendations.length === 0;
+
   if (loading) {
     return (
       <div className="space-y-6">
@@ -38,8 +39,7 @@ function RecommendationList({ recommendations }) {
     return <ErrorScreen error={error} />;
   }
 
-  // Estado vazio
-  if (!recommendations || recommendations.length === 0) {
+  if (hasNoRecommendations) {
     return (
       <div className="text-center py-16">
         <div className="mb-6">
@@ -56,7 +56,6 @@ function RecommendationList({ recommendations }) {
 
   return (
     <div className="space-y-6">
-      {/* Header da seção */}
       <div className="flex items-center justify-between mb-6">
         <div className="flex items-center space-x-3">
           <div>
@@ -64,18 +63,16 @@ function RecommendationList({ recommendations }) {
               Recomendações Personalizadas
             </h2>
             <p className="text-gray-600">
-              Encontramos {recommendations.length} {recommendations.length === 1 ? 'produto' : 'produtos'} para você
+              Encontramos {recommendations.length} produto{recommendations.length !== 1 && 's'} para você
             </p>
           </div>
         </div>
 
-        {/* Badge de resultados */}
         <div className="bg-blue-100 text-blue-800 px-4 py-2 rounded-full font-semibold">
-          {recommendations.length} resultado{recommendations.length !== 1 ? 's' : ''}
+          {recommendations.length} resultado{recommendations.length !== 1 && 's'}
         </div>
       </div>
 
-      {/* Grid de produtos */}
       <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
         {recommendations.map((product) => (
           <ProductCard

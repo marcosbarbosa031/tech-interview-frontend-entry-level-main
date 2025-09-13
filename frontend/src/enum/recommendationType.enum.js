@@ -1,6 +1,6 @@
-const RECOMMENDATION_TYPE = {
+const RecomendationTypeEnum = {
   SINGLE_PRODUCT: 'SingleProduct',
   MULTIPLE_PRODUCTS: 'MultipleProducts',
 }
 
-export default RECOMMENDATION_TYPE;
+export default RecomendationTypeEnum;

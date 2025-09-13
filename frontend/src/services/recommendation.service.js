@@ -1,6 +1,6 @@
-import RECOMMENDATION_TYPE from "../enum/recommendationType.enum";
+import RecomendationTypeEnum from "../enum/recommendationType.enum";
 
-const {SINGLE_PRODUCT, MULTIPLE_PRODUCTS} = RECOMMENDATION_TYPE
+const {SINGLE_PRODUCT, MULTIPLE_PRODUCTS} = RecomendationTypeEnum
 
 /**
  * Verifica se um array não está vazio
@@ -34,11 +34,11 @@ const hasNoFilters = (selectedPreferences, selectedFeatures) =>
  */
 const matchesPreferences = (product, selectedPreferences) => {
   if (isArrayEmpty(selectedPreferences)) {
-    return true; // Se não há preferências selecionadas, produto atende
+    return true;
   }
   
   if (!product.preferences || isArrayEmpty(product.preferences)) {
-    return false; // Produto sem preferências não atende quando há filtro
+    return false;
   }
   
   return selectedPreferences.some(selectedPref => 
@@ -54,11 +54,11 @@ const matchesPreferences = (product, selectedPreferences) => {
  */
 const matchesFeatures = (product, selectedFeatures) => {
   if (isArrayEmpty(selectedFeatures)) {
-    return true; // Se não há funcionalidades selecionadas, produto atende
+    return true;
   }
   
   if (!product.features || isArrayEmpty(product.features)) {
-    return false; // Produto sem funcionalidades não atende quando há filtro
+    return false;
   }
   
   return selectedFeatures.some(selectedFeature => 
@@ -88,7 +88,6 @@ const applyFilters = (product, filters) => {
 const filterProducts = (products, filters) => {
   const { selectedPreferences, selectedFeatures } = filters;
   
-  // Se não há filtros, retorna todos os produtos
   if (hasNoFilters(selectedPreferences, selectedFeatures)) {
     return products;
   }
@@ -160,10 +159,7 @@ const recommendationService = {
     const filters = { selectedPreferences, selectedFeatures };
     
     const filteredProducts = filterProducts(products, filters);
-    const recommendations = applyRecommendationStrategy(
-      filteredProducts, 
-      selectedRecommendationType
-    );
+    const recommendations = applyRecommendationStrategy(filteredProducts, selectedRecommendationType);
     
     return recommendations;
   },

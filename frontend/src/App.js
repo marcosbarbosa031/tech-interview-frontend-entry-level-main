@@ -10,17 +10,14 @@ function App() {
     <div className="min-h-screen bg-gray-50">
       <Header />
 
-      {/* Main Content */}
       <main className="container mx-auto px-4 py-8">
         <div className="grid grid-cols-1 lg:grid-cols-4 gap-8">
-          {/* Sidebar de Filtros */}
           <div className="lg:col-span-1">
             <div className="sticky top-8">
               <Form onGetRecommendations={setRecommendations} />
             </div>
           </div>
 
-          {/* Área Principal de Resultados */}
           <div className="lg:col-span-3">
             <RecommendationList recommendations={recommendations} />
           </div>

@@ -43,6 +43,17 @@ const Form = ({ onGetRecommendations }) => {
     ));
   };
 
+  const renderActiveFilters = () => {
+    return (
+      <div className="mt-3 flex items-center space-x-2">
+        <span className="w-2 h-2 bg-blue-500 rounded-full animate-pulse"></span>
+        <span className="text-sm text-blue-600 font-medium">
+          {(formData.selectedPreferences?.length || 0) + (formData.selectedFeatures?.length || 0)} filtros ativos
+        </span>
+      </div>
+    );
+  };
+
   return (
     <div className={`bg-white rounded-xl shadow-lg border border-gray-200 transition-all duration-300 w-full `}>
       <div className="p-6 border-b border-gray-100 bg-gradient-to-r from-gray-50 to-blue-50 rounded-t-xl">
@@ -55,15 +66,7 @@ const Form = ({ onGetRecommendations }) => {
           </div>
         </div>
 
-        {/* Indicador de filtros ativos */}
-        { hasActiveFilters && (
-          <div className="mt-3 flex items-center space-x-2">
-            <span className="w-2 h-2 bg-blue-500 rounded-full animate-pulse"></span>
-            <span className="text-sm text-blue-600 font-medium">
-              {(formData.selectedPreferences?.length || 0) + (formData.selectedFeatures?.length || 0)} filtros ativos
-            </span>
-          </div>
-        )}
+        { hasActiveFilters && renderActiveFilters() }
       </div>
 
       <div className="p-6 space-y-8">
@@ -93,7 +96,6 @@ const Form = ({ onGetRecommendations }) => {
           </>
         )}
 
-        {/* Botões de Ação */}
         <div className="space-y-3 pt-6 border-t border-gray-100">
           <Button
             text="Aplicar Filtros"

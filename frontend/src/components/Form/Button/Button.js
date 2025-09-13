@@ -5,13 +5,12 @@ const variants = {
   secondary: 'border-2 border-gray-300 text-gray-700 hover:bg-gray-50 hover:border-gray-400',
 }
 
-
 function Button({ text, onClick, disabled = false, variant = 'primary',}) {
   return (
     <button
       onClick={onClick}
       disabled={disabled}
-      className={`w-full ${variants[variant]} py-3 px-4 rounded-lg font-semibold transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none flex items-center justify-center space-x-2`}
+      className={`${variants[variant]} w-full py-3 px-4 rounded-lg font-semibold transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none flex items-center justify-center space-x-2`}
     >
       <span>{text}</span>
     </button>

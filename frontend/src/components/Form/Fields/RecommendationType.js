@@ -1,8 +1,8 @@
 import React from 'react';
 import Checkbox from '../../shared/Checkbox';
-import RECOMMENDATION_TYPE from '../../../enum/recommendationType.enum';
+import RecomendationTypeEnum from '../../../enum/recommendationType.enum';
 
-const { SINGLE_PRODUCT, MULTIPLE_PRODUCTS } = RECOMMENDATION_TYPE;
+const { SINGLE_PRODUCT, MULTIPLE_PRODUCTS } = RecomendationTypeEnum;
 
 function RecommendationType({ recommendationType, onRecommendationTypeChange }) {
 
