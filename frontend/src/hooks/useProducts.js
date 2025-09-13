@@ -34,7 +34,6 @@ const useProducts = () => {
       setPreferences(allPreferences);
       setFeatures(allFeatures);
     } catch (error) {
-      console.error('Erro ao obter os produtos:', error);
       setError(error.message);
     } finally {
       setLoading(false);

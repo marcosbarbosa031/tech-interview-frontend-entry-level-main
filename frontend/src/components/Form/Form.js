@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React from 'react';
 import { Preferences, Features, RecommendationType } from './Fields';
 import { Button } from './Button';
 import useProducts from '../../hooks/useProducts';
@@ -7,21 +7,21 @@ import useRecommendations from '../../hooks/useRecommendations';
 
 const Form = ({ onGetRecommendations }) => {
   const { preferences, features, products, loading } = useProducts();
-  const { getRecommendations, defaultRecommendationType } = useRecommendations(products);
+  const { getRecommendations, defaultRecommendationType } = useRecommendations();
   const { formData, handleChange, resetToDefault } = useForm({
     selectedPreferences: [],
     selectedFeatures: [],
     selectedRecommendationType: defaultRecommendationType,
   });
 
-  const handleApplyFilters = useCallback(async () => {
+  const handleApplyFilters = () => {
     try {
-      const results = getRecommendations(formData);
+      const results = getRecommendations(formData, products);
       onGetRecommendations(results);
     } catch (error) {
       console.error('Erro ao aplicar filtros:', error);
     }
-  }, [formData, getRecommendations, onGetRecommendations]);
+  };
 
   const hasActiveFilters = 
     formData.selectedPreferences?.length > 0 || 

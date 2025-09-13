@@ -5,13 +5,12 @@ jest.mock('axios', () => ({
   get: jest.fn()
 }));
 
-
 describe('product.service', () => {
   beforeEach(() => {
     jest.clearAllMocks();
   });
 
-  test('Retorna lista de produtos quando a requisição é bem-sucedida', async () => {
+  test('Deve retornar lista de produtos quando a requisição é bem-sucedida', async () => {
     const mockProducts = [
       { id: 1, name: 'RD Station Marketing' },
       { id: 2, name: 'RD Station CRM' },
@@ -28,13 +27,12 @@ describe('product.service', () => {
     expect(result).toEqual(mockProducts);
   });
 
-  test('Lança erro quando a requisição falha', async () => {
+  test('Deve lançar erro quando a requisição falha', async () => {
     const mockError = new Error('Network Error');
     
     const axios = require('axios');
     axios.get.mockRejectedValue(mockError);
 
-    // Mock do console.error para evitar logs durante os testes
     const consoleSpy = jest.spyOn(console, 'error').mockImplementation(() => {});
 
     await expect(productService.getProducts()).rejects.toThrow('Network Error');
@@ -45,7 +43,7 @@ describe('product.service', () => {
     consoleSpy.mockRestore();
   });
 
-  test('Retorna array vazio quando a API retorna array vazio', async () => {
+  test('Deve retornar array vazio quando a API retorna array vazio', async () => {
     const axios = require('axios');
     axios.get.mockResolvedValue({
       data: [],

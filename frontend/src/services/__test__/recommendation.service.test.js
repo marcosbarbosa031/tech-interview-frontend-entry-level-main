@@ -2,7 +2,7 @@ import recommendationService from '../recommendation.service';
 import mockProducts from '../../mocks/mockProducts';
 
 describe('recommendationService', () => {
-  test('Retorna array vazio quando não há produtos', () => {
+  test('Deve retornar array vazio quando não há produtos', () => {
     const formData = {
       selectedPreferences: [],
       selectedFeatures: [],
@@ -18,7 +18,7 @@ describe('recommendationService', () => {
     expect(recommendations).toHaveLength(0);
   });
 
-  test('Retorna array vazio quando não há matches de preferências', () => {
+  test('Deve retornar array vazio quando não há matches de preferências', () => {
     const formData = {
       selectedPreferences: ['Preferência inexistente'],
       selectedFeatures: [],
@@ -30,7 +30,7 @@ describe('recommendationService', () => {
     expect(result).toHaveLength(0);
   });
 
-  test('Retorna array vazio quando não há matches de funcionalidades', () => {
+  test('Deve retornar array vazio quando não há matches de funcionalidades', () => {
     const formData = {
       selectedPreferences: [],
       selectedFeatures: ['Funcionalidade inexistente'],
@@ -42,7 +42,7 @@ describe('recommendationService', () => {
     expect(result).toHaveLength(0);
   });
 
-  test('Retorna todos os produtos quando selectedPreferences e selectedFeatures estão vazios', () => {
+  test('Deve retornar todos os produtos quando selectedPreferences e selectedFeatures estão vazios', () => {
     const formData = {
       selectedPreferences: [],
       selectedFeatures: [],
@@ -55,7 +55,7 @@ describe('recommendationService', () => {
     expect(result).toEqual(mockProducts);
   });
 
-  test('Retorna por padrão múltiplos produtos quando selectedRecommendationType não é especificado', () => {
+  test('Deve retornar por padrão múltiplos produtos quando selectedRecommendationType não é especificado', () => {
     const formData = {
       selectedPreferences: [],
       selectedFeatures: [],
@@ -68,7 +68,7 @@ describe('recommendationService', () => {
     expect(result).toEqual(mockProducts);
   });
 
-  test('Filtra produtos apenas por preferências', () => {
+  test('Deve filtrar produtos apenas por preferências', () => {
     const formData = {
       selectedPreferences: ['Automação de marketing'],
       selectedFeatures: [],
@@ -81,7 +81,7 @@ describe('recommendationService', () => {
     expect(result[0].name).toBe('RD Station Marketing');
   });
 
-  test('Filtra produtos apenas por funcionalidades', () => {
+  test('Deve filtrar produtos apenas por funcionalidades', () => {
     const formData = {
       selectedPreferences: [],
       selectedFeatures: ['Chat ao vivo e mensagens automatizadas'],
@@ -94,7 +94,7 @@ describe('recommendationService', () => {
     expect(result[0].name).toBe('RD Conversas');
   });
 
-  test('Retorna recomendações corretas para MultipleProducts com base nas preferências selecionadas', () => {
+  test('Deve retornar recomendações corretas para MultipleProducts com base nas preferências selecionadas', () => {
     const formData = {
       selectedPreferences: [
         'Integração fácil com ferramentas de e-mail',
@@ -120,7 +120,7 @@ describe('recommendationService', () => {
     ]);
   });
 
-  test('Retorna recomendação correta para SingleProduct com base nas preferências selecionadas', () => {
+  test('Deve retornar recomendação correta para SingleProduct com base nas preferências selecionadas', () => {
     const formData = {
       selectedPreferences: ['Integração com chatbots'],
       selectedFeatures: ['Chat ao vivo e mensagens automatizadas'],
@@ -136,7 +136,7 @@ describe('recommendationService', () => {
     expect(recommendations[0].name).toBe('RD Conversas');
   });
 
-  test('Retorna apenas um produto para SingleProduct com mais de um produto de match', () => {
+  test('Deve retornar apenas um produto para SingleProduct com mais de um produto de match', () => {
     const formData = {
       selectedPreferences: [
         'Integração fácil com ferramentas de e-mail',
@@ -158,7 +158,7 @@ describe('recommendationService', () => {
     expect(recommendations[0].name).toBe('RD Station Marketing');
   });
 
-  test('Retorna o último match em caso de empate para SingleProduct', () => {
+  test('Deve retornar o último match em caso de empate para SingleProduct', () => {
     const formData = {
       selectedPreferences: ['Automação de marketing', 'Integração com chatbots'],
       selectedFeatures: [],
