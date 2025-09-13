@@ -2,36 +2,14 @@ import RecomendationTypeEnum from "../enum/recommendationType.enum";
 
 const {SINGLE_PRODUCT, MULTIPLE_PRODUCTS} = RecomendationTypeEnum
 
-/**
- * Verifica se um array não está vazio
- * @param {Array} array - Array a ser verificado
- * @returns {boolean} - true se o array está vazio, false caso contrário
- */
 const isArrayEmpty = (array) => Array.isArray(array) && array.length === 0;
 
-/**
- * Verifica se não há produtos disponíveis
- * @param {Array} products - Array de produtos a ser verificado
- * @returns {boolean} - true se não há produtos disponíveis, false caso contrário
- */
 const hasNoProducts = (products) => !products || isArrayEmpty(products);
 
-/**
- * Verifica se nenhum filtro foi aplicado
- * @param {Array} selectedPreferences - Array de preferências selecionadas
- * @param {Array} selectedFeatures - Array de funcionalidades selecionadas
- * @returns {boolean} - true se nenhum filtro foi aplicado, false caso contrário
- */
 const hasNoFilters = (selectedPreferences, selectedFeatures) => 
   isArrayEmpty(selectedPreferences) && isArrayEmpty(selectedFeatures);
 
 
-/**
- * Verifica se um produto atende às preferências selecionadas
- * @param {Object} product - Produto a ser verificado
- * @param {Array} selectedPreferences - Array de preferências selecionadas
- * @returns {boolean} - true se o produto atende às preferências selecionadas, false caso contrário
- */
 const matchesPreferences = (product, selectedPreferences) => {
   if (isArrayEmpty(selectedPreferences)) {
     return true;
@@ -46,12 +24,6 @@ const matchesPreferences = (product, selectedPreferences) => {
   );
 };
 
-/**
- * Verifica se um produto atende às funcionalidades selecionadas
- * @param {Object} product - Produto a ser verificado
- * @param {Array} selectedFeatures - Array de funcionalidades selecionadas
- * @returns {boolean} - true se o produto atende às funcionalidades selecionadas, false caso contrário
- */
 const matchesFeatures = (product, selectedFeatures) => {
   if (isArrayEmpty(selectedFeatures)) {
     return true;
@@ -66,12 +38,6 @@ const matchesFeatures = (product, selectedFeatures) => {
   );
 };
 
-/**
- * Aplica todos os filtros a um produto
- * @param {Object} product - Produto a ser verificado
- * @param {Object} filters - Filtros aplicados
- * @returns {boolean} - true se o produto atende aos filtros, false caso contrário
- */
 const applyFilters = (product, filters) => {
   const { selectedPreferences, selectedFeatures } = filters;
   
@@ -79,12 +45,6 @@ const applyFilters = (product, filters) => {
          matchesFeatures(product, selectedFeatures);
 };
 
-/**
- * Filtra a lista de produtos baseado nos critérios selecionados
- * @param {Array} products - Array de produtos a ser filtrado
- * @param {Object} filters - Filtros aplicados
- * @returns {Array} - Array de produtos filtrados
- */
 const filterProducts = (products, filters) => {
   const { selectedPreferences, selectedFeatures } = filters;
   
@@ -95,13 +55,6 @@ const filterProducts = (products, filters) => {
   return products.filter(product => applyFilters(product, filters));
 };
 
-/**
- * Estratégia para recomendação de produto único
- * Retorna um array com um único produto.
- * Em caso de múltiplos produtos, retorna o último.
- * @param {Array} filteredProducts - Array de produtos filtrados
- * @returns {Array} - Array de produtos recomendados
- */
 const getSingleProductRecommendation = (filteredProducts) => {
   if (isArrayEmpty(filteredProducts)) {
     return [];
@@ -110,22 +63,10 @@ const getSingleProductRecommendation = (filteredProducts) => {
   return filteredProducts.slice(-1);
 };
 
-/**
- * Estratégia para recomendação de múltiplos produtos
- * Retorna todos os produtos filtrados.
- * @param {Array} filteredProducts - Array de produtos filtrados
- * @returns {Array} - Array de produtos recomendados
- */
 const getMultipleProductsRecommendation = (filteredProducts) => {
   return filteredProducts || [];
 };
 
-/**
- * Aplica a estratégia de recomendação baseada no tipo selecionado
- * @param {Array} filteredProducts - Array de produtos filtrados
- * @param {string} recommendationType - Tipo de recomendação
- * @returns {Array} - Array de produtos recomendados
- */
 const applyRecommendationStrategy = (filteredProducts, recommendationType) => {
   const strategies = {
     [SINGLE_PRODUCT]: getSingleProductRecommendation,

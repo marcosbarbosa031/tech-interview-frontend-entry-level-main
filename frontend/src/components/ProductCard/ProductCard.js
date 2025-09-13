@@ -15,7 +15,7 @@ const ProductCard = ({ product }) => {
           <div className="mb-4">
             <h4 className="text-sm font-semibold text-gray-700 mb-2">Principais recursos:</h4>
             <ul className="space-y-1">
-              {product.features && product.features.map((feature, index) => (
+              {product.features.map((feature, index) => (
                 <li key={index} className="text-xs text-gray-600 flex items-start">
                   <span className="text-green-500 mr-2 mt-0.5">✓</span>
                   <span className="line-clamp-1">{feature}</span>

@@ -8,6 +8,10 @@ function RecommendationList({ recommendations }) {
 
   const hasNoRecommendations = !recommendations || recommendations.length === 0;
 
+  const renderPluralOrSingular = (word) => {
+    return recommendations.length !== 1 ? `${word}s` : word;
+  }
+
   if (loading) {
     return (
       <div className="space-y-6">
@@ -63,13 +67,13 @@ function RecommendationList({ recommendations }) {
               Recomendações Personalizadas
             </h2>
             <p className="text-gray-600">
-              Encontramos {recommendations.length} produto{recommendations.length !== 1 && 's'} para você
+              Encontramos {recommendations.length} {renderPluralOrSingular('produto')} para você
             </p>
           </div>
         </div>
 
         <div className="bg-blue-100 text-blue-800 px-4 py-2 rounded-full font-semibold">
-          {recommendations.length} resultado{recommendations.length !== 1 && 's'}
+          {recommendations.length} {renderPluralOrSingular('resultado')}
         </div>
       </div>
 
