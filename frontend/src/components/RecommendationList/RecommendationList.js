@@ -15,8 +15,8 @@ function RecommendationList({ recommendations }) {
         </div>
         
         <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
-          {[...Array(6)].map((i) => (
-            <div key={i} className="bg-white rounded-xl shadow-lg border border-gray-100 overflow-hidden animate-pulse">
+          {[...Array(6)].map((_, index) => (
+            <div key={index} className="bg-white rounded-xl shadow-lg border border-gray-100 overflow-hidden animate-pulse">
               <div className="bg-gray-200 h-24"></div>
               <div className="p-6 space-y-4">
                 <div className="h-4 bg-gray-200 rounded w-3/4"></div>

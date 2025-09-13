@@ -1,13 +1,12 @@
 import React from 'react';
+import { Button } from '../Form/Button';
 
 const ProductCard = ({ product }) => {
   const getStars = () => {
     return (
       <div className="flex items-center space-x-1 mb-3">
-        {[...Array(5)].map((_, i) => (
-          <span 
-            key={i}
-          >
+        {[...Array(5)].map((_, index) => (
+          <span key={index}>
             ⭐
           </span>
         ))}
@@ -64,13 +63,10 @@ const ProductCard = ({ product }) => {
           </div>
         )}
 
-        {/* Botão de Ação */}
-        <button
+        <Button
+          text="Ver Mais Detalhes"
           onClick={() => {}}
-          className="w-full bg-gradient-to-r from-blue-600 to-indigo-600 text-white py-3 px-4 rounded-lg font-medium hover:from-blue-700 hover:to-indigo-700 transition-all duration-200 transform hover:scale-105 shadow-md hover:shadow-lg"
-        >
-          Ver Mais Detalhes
-        </button>
+        />
       </div>
     </div>
   );

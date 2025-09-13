@@ -24,8 +24,11 @@ function Preferences({
   }, [selectedPreferences]);
 
   return (
-    <div className="space-y-3">
-      <ul className="space-y-2">
+    <div className="space-y-4">
+      <div className="flex items-center space-x-2 mb-4">
+        <h3 className="text-lg font-semibold text-gray-800">Preferências</h3>
+      </div>
+      <ul className="space-y-2 bg-gray-50 rounded-lg p-4">
         {preferences.map((preference, index) => (
           <li key={index} className="mb-2">
             <Checkbox

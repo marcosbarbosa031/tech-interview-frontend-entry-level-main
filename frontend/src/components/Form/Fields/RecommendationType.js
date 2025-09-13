@@ -7,8 +7,11 @@ const { SINGLE_PRODUCT, MULTIPLE_PRODUCTS } = RECOMMENDATION_TYPE;
 function RecommendationType({ recommendationType, onRecommendationTypeChange }) {
 
   return (
-    <div className="space-y-3">
-      <div className="flex flex-col space-y-3">
+    <div className="space-y-4">
+      <div className="flex items-center space-x-2 mb-4">
+        <h3 className="text-lg font-semibold text-gray-800">Tipo de Recomendação</h3>
+      </div>
+      <div className="flex flex-col space-y-3 bg-gray-50 rounded-lg p-4">
         <div className='flex'>
           <Checkbox
             id="SingleProduct"

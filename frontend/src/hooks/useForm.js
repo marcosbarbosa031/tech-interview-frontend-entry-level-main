@@ -1,4 +1,3 @@
-// useForm.js
 import { useState, useCallback } from 'react';
 
 const useForm = (initialState) => {
