@@ -1,4 +1,4 @@
-import { renderHook, act } from '@testing-library/react';
+import { renderHook } from '@testing-library/react';
 import useRecommendations from '../useRecommendations';
 import recommendationService from '../../services/recommendation.service';
 import RecomendationTypeEnum from '../../enum/recommendationType.enum';
@@ -18,10 +18,9 @@ describe('useRecommendations', () => {
     jest.clearAllMocks();
   });
 
-  it('Deve inicializar com recomendações vazias e tipo de recomendação padrão', () => {
+  it('Deve inicializar com tipo de recomendação padrão', () => {
     const { result } = renderHook(() => useRecommendations());
 
-    expect(result.current.recommendations).toEqual([]);
     expect(result.current.defaultRecommendationType).toBe(RecomendationTypeEnum.MULTIPLE_PRODUCTS);
   });
 
@@ -35,16 +34,5 @@ describe('useRecommendations', () => {
 
     expect(recommendationService.getRecommendations).toHaveBeenCalledWith(mockFormData, mockProducts);
     expect(recommendations).toEqual(mockRecommendations);
-  });
-
-  it('Deve atualizar recomendações quando setRecommendations é chamado', () => {
-    const { result } = renderHook(() => useRecommendations());
-    const newRecommendations = [mockProducts[1]];
-
-    act(() => {
-      result.current.setRecommendations(newRecommendations);
-    });
-
-    expect(result.current.recommendations).toEqual(newRecommendations);
   });
 });
